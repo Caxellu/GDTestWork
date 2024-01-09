@@ -30,6 +30,11 @@ public class InputManager : MonoBehaviour
             dir += new Vector2(1, 0);
         }
 
+        if (Input.GetKey(KeyCode.J))
+            UIManager.Instance.BtnSpell1.onClick.Invoke();
+        if (Input.GetKey(KeyCode.K))
+            UIManager.Instance.BtnSpell2.onClick.Invoke();
+
         Player.Instance.RotatePlayer(dir.normalized);
         Player.Instance.MovePlayer(dir.normalized);
     }

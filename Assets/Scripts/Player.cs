@@ -7,6 +7,11 @@ public class Player : MonoBehaviour
     public static Player Instance = null;
 
     [SerializeField]
+    private List<BaseSpell> _spellList;
+
+    public List<BaseSpell> SpellList { get { return _spellList; } }
+
+    [SerializeField]
     private float moveSpeed;
     [SerializeField]
     private float rotateSpeed;
@@ -19,6 +24,7 @@ public class Player : MonoBehaviour
 
     private float lastAttackTime = 0;
     private bool isDead = false;
+    
 
     private void Awake()
     {
@@ -82,6 +88,7 @@ public class Player : MonoBehaviour
             }
         }
     }
+
     public void RotatePlayer(Vector2 dir)
     {
         if (dir.magnitude != 0)
