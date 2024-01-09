@@ -4,15 +4,33 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static InputManager Instance = null;
+    private Vector2 dir;
+    private void Awake()
     {
-        
+        Instance = this;
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        dir = new Vector2(0, 0);
+        if (Input.GetKey(KeyCode.W))
+        {
+            dir += new Vector2(0, 1);
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            dir += new Vector2(0, -1);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            dir += new Vector2(-1, 0);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            dir += new Vector2(1, 0);
+        }
+
+        Player.Instance.RotatePlayer(dir.normalized);
+        Player.Instance.MovePlayer(dir.normalized);
     }
 }
