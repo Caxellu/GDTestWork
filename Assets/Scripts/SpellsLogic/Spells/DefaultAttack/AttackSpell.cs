@@ -14,6 +14,7 @@ public class AttackSpell : Spell
     {
         AnimatorController.SetTrigger(AnimKey);
         ChangeCooldownTimer(CooldownTime);
+        IsCast = true;
 
         Enemie closestEnemie = FindClosestEnemie();
         if (closestEnemie != null)
@@ -28,8 +29,10 @@ public class AttackSpell : Spell
     }
     public override void EventTick(float deltaTick)
     {
-        if (isAvailbale == false)
+        if (IsKD)
             ChangeCooldownTimer(CooldownTimer - deltaTick);
 
+        if (IsCast)
+            ChangeCastTimer(CastTimer - deltaTick);
     }
 }

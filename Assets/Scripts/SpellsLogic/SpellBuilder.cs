@@ -16,7 +16,7 @@ public class SpellBuilder
     {
         if (_spell != null)
         {
-            _spell.SetBaseSpell(_config.CooldownTime, _config.Damage,_config.AnimKey, SceneManager.Instance.Player.AnimatorController);
+            _spell.SetBaseSpell(_config.CooldownTime,_config.CastTime, _config.Damage,_config.AnimKey, SceneManager.Instance.Player.AnimatorController);
         }
     }
 

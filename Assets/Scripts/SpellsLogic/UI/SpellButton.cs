@@ -14,6 +14,10 @@ public class SpellButton : MonoBehaviour
     {
         SetTextSpell(textBtn);
     }
+    private void Start()
+    {
+        SceneManager.Instance.Player.EventDiePlayer += DisableInteractableBtn;
+    }
     private void SetTextSpell(string text)
     {
         textCompBtn.text = text;
@@ -22,7 +26,7 @@ public class SpellButton : MonoBehaviour
     {
         if (current <= 0f)
         {
-            imgKd.fillAmount = 1;
+            imgKd.fillAmount = 0;
         }
         else
             imgKd.fillAmount = 1 - Mathf.Clamp01(current / max);
@@ -34,11 +38,11 @@ public class SpellButton : MonoBehaviour
     public void EnableInteractableBtn()
     {
         btn.interactable = true;
-        imgKd.color = new Color(188f / 256f, 188f / 256f, 188f / 256f);
+        imgKd.color = new Color(188f / 256f, 188f / 256f, 188f / 256f,125f/256f);
     }
     public void DisableInteractableBtn()
     {
         btn.interactable = false;
-        imgKd.color = new Color(120f / 256f, 120f / 256f, 120f / 256f);
+        imgKd.color = new Color(120f / 256f, 120f / 256f, 120f / 256f, 125f / 256f);
     }
 }

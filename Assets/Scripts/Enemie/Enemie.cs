@@ -62,10 +62,10 @@ public class Enemie : MonoBehaviour
 
 
 
-    private void Die()
+    public virtual void Die()
     {
         SceneManager.Instance.RemoveEnemie(this);
-        SceneManager.Instance.Player.AddHPVampirism(maxHp*0.5f);
+        SceneManager.Instance.Player.AddHPVampirism(maxHp);
         isDead = true;
         AnimatorController.SetTrigger("Die");
     }

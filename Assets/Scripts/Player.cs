@@ -1,24 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
+    public event Action<float, float> EventUpdateHpPlayer;
+    public UnityAction EventDiePlayer;
+
     [SerializeField]
     private float moveSpeed;
     [SerializeField]
     private float rotateSpeed;
 
-    [SerializeField]private float MaxHp;
+    [SerializeField] private float MaxHp;
     private float CurrentHp;
     public Animator AnimatorController;
 
-    private bool isDead = false;
-    
+    public bool isDead { get; private set; } = false;
 
     private void Awake()
     {
-        MaxHp = CurrentHp;
+        CurrentHp = MaxHp;
+    }
+    private void Start()
+    {
+        EventDiePlayer += Die;
+        EventUpdateHpPlayer?.Invoke(MaxHp, MaxHp);
     }
     private void Update()
     {
@@ -29,18 +38,23 @@ public class Player : MonoBehaviour
 
         if (CurrentHp <= 0)
         {
-            Die();
+            EventDiePlayer?.Invoke();
             return;
         }
     }
 
     public void AddHPVampirism(float hp)
     {
-        CurrentHp = Mathf.Clamp(CurrentHp + hp, 0.0f, MaxHp);
+        ChangeHpPlayer(Mathf.Clamp(CurrentHp + hp, 0.0f, MaxHp));
     }
     public void TakeDamage(float hp)
     {
-        CurrentHp = Mathf.Clamp(CurrentHp - hp, 0.0f, MaxHp);
+        ChangeHpPlayer(Mathf.Clamp(CurrentHp - hp, 0.0f, MaxHp));
+    }
+    private void ChangeHpPlayer(float hp)
+    {
+        CurrentHp = hp;
+        EventUpdateHpPlayer?.Invoke(CurrentHp, MaxHp);
     }
     public void RotatePlayer(Vector2 dir, float koefAcceleration)
     {
@@ -67,8 +81,6 @@ public class Player : MonoBehaviour
     {
         isDead = true;
         AnimatorController.SetTrigger("Die");
-
-        SceneManager.Instance.GameOver();
     }
 
 

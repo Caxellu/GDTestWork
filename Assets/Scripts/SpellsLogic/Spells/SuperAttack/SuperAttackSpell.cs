@@ -15,6 +15,7 @@ public class SuperAttackSpell : Spell
     {
         AnimatorController.SetTrigger(AnimKey);
         ChangeCooldownTimer(CooldownTime);
+        IsCast = true;
 
         Enemie closestEnemie = FindClosestEnemie();
         if (closestEnemie != null)
@@ -29,17 +30,26 @@ public class SuperAttackSpell : Spell
     }
     public override void EventTick(float deltaTick)
     {
-        if (isAvailbale == false)
+        if (IsKD)
             ChangeCooldownTimer(CooldownTimer - deltaTick);
+
+        if (IsCast)
+            ChangeCastTimer(CastTimer - deltaTick);
 
         Enemie closestEnemie = FindClosestEnemie();
         if(closestEnemie!=null)
         {
             float distance = Vector3.Distance(SceneManager.Instance.Player.transform.position, closestEnemie.transform.position);
             if (distance <= AttackRange)
+            {
                 isEnemiNear = true;
+                IsAvailable = true;
+            }
             else
+            {
                 isEnemiNear = false;
+                IsAvailable = false;
+            }
         }
 
 
@@ -55,14 +65,14 @@ public class SuperAttackSpell : Spell
             //button disable
             EventNOTAvailableSpell?.Invoke();
         }
-        CheckCondition();
+        CheckKD();
     }
-    public override bool CheckCondition()
+    public override bool CheckKD()
     {
-        if (isEnemiNear && CooldownTimer == 0.0f)
-            return true;
-        else
+        if ( CooldownTimer == 0.0f)
             return false;
+        else
+            return true;
     }
 
 }

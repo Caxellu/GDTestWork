@@ -14,12 +14,17 @@ public class Spell
     public string AnimKey { get; private set; }
     public float CooldownTime { get; private set; }
     public float CooldownTimer { get; private set; }
+    public float CastTime{ get; private set; }
+    public float CastTimer { get; private set; }
     public float Damage { get; private set; }
-    public bool isAvailbale => CheckCondition();
+    public bool IsKD => CheckKD();
+    public bool IsCast = false;
+    public bool IsAvailable=true;//special conditions is check?
 
-    public void SetBaseSpell(float coolDownTime,float damage, string key, Animator animator)
+    public void SetBaseSpell(float coolDownTime,float castTime,float damage, string key, Animator animator)
     {
         CooldownTime = coolDownTime;
+        CastTime = castTime;
         Damage = damage;
         AnimKey = key;
         AnimatorController = animator;
@@ -29,13 +34,19 @@ public class Spell
         CooldownTimer = Mathf.Clamp(timer, 0.0f, CooldownTime);
         EventChangeCooldownTimer?.Invoke(CooldownTimer, CooldownTime);
     }
+    public void ChangeCastTimer(float timer)
+    {
+        CastTimer = Mathf.Clamp(timer, 0.0f, CastTime);
+        if (CastTimer == 0.0f)
+            IsCast = false;
+    }
     public virtual void EventTick(float deltaTick) { }
-    public virtual bool CheckCondition()
+    public virtual bool CheckKD()
     {
         if (CooldownTimer == 0.0f)
-            return true;
-        else
             return false;
+        else
+            return true;
     }
     public virtual void CastSpell(){}
     public virtual void EndCastSpell() { }

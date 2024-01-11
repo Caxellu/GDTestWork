@@ -25,6 +25,7 @@ public class SceneManager : MonoBehaviour
     private void Start()
     {
         SpawnWave();
+        Player.EventDiePlayer += ShowGameOverText;
     }
 
     public void AddEnemie(Enemie enemie)
@@ -42,7 +43,7 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    public void GameOver()
+    private void ShowGameOverText()
     {
         Lose.SetActive(true);
     }

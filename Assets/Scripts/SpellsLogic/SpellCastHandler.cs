@@ -9,7 +9,8 @@ public class SpellCastHandler : MonoBehaviour
     [SerializeField] private Player _player;
 
     private List<Spell> _spells = new List<Spell>();
-    private Spell _currentspell=null;
+    private Spell _currentspell = null;
+
     private void Awake()
     {
         Instance = this;
@@ -18,6 +19,7 @@ public class SpellCastHandler : MonoBehaviour
     {
         _spellStorage.Init();
         _spells.AddRange(_spellStorage.GetSpells());
+
         UIManager.Instance.InitSpellUI(_spellStorage.GetSpells());
     }
     private void Update()
@@ -27,9 +29,9 @@ public class SpellCastHandler : MonoBehaviour
             _spells[i].EventTick(Time.deltaTime);
         }
 
-        if(_currentspell!=null)
+        if (_currentspell != null)
         {
-            if (_currentspell.isAvailbale)
+            if (_currentspell.IsCast == false)
                 _currentspell = null;
         }
         else
@@ -46,7 +48,7 @@ public class SpellCastHandler : MonoBehaviour
     }
     public void OnClickAbilityButton(Spell spell)
     {
-        if (spell.isAvailbale)
+        if (spell.IsKD == false && spell.IsAvailable)
         {
             _currentspell = spell;
             _currentspell.CastSpell();
