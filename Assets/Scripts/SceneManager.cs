@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class SceneManager : MonoBehaviour
 {
     public static SceneManager Instance;
-
+    
+    public event Action<int, int> EventStartWave;
     public Player Player;
     public List<Enemie> Enemies;
     public GameObject Lose;
@@ -35,6 +37,7 @@ public class SceneManager : MonoBehaviour
         Enemies.Remove(enemie);
         if(Enemies.Count == 0)
         {
+
             SpawnWave();
         }
     }
@@ -55,11 +58,11 @@ public class SceneManager : MonoBehaviour
         var wave = Config.Waves[currWave];
         foreach (var character in wave.Characters)
         {
-            Vector3 pos = new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
+            Vector3 pos = new Vector3(UnityEngine.Random.Range(-10, 10), 0, UnityEngine.Random.Range(-10, 10));
             Instantiate(character, pos, Quaternion.identity);
         }
         currWave++;
-
+        EventStartWave?.Invoke(currWave, Config.Waves.Length);
     }
 
     public void Reset()

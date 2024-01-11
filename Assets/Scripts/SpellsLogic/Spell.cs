@@ -39,4 +39,33 @@ public class Spell
     }
     public virtual void CastSpell(){}
     public virtual void EndCastSpell() { }
+    public Enemie FindClosestEnemie()
+    {
+        var enemies = SceneManager.Instance.Enemies;
+       Enemie closestEnemie = null;
+
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            var enemie = enemies[i];
+            if (enemie == null)
+            {
+                continue;
+            }
+
+            if (closestEnemie == null)
+            {
+                closestEnemie = enemie;
+                continue;
+            }
+
+            var distance = Vector3.Distance(SceneManager.Instance.Player.transform.position, enemie.transform.position);
+            var closestDistance = Vector3.Distance(SceneManager.Instance.Player.transform.position, closestEnemie.transform.position);
+
+            if (distance < closestDistance)
+            {
+                closestEnemie = enemie;
+            }
+        }
+        return closestEnemie;
+    }
 }

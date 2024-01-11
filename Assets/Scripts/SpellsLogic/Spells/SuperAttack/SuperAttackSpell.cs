@@ -16,13 +16,35 @@ public class SuperAttackSpell : Spell
         AnimatorController.SetTrigger(AnimKey);
         ChangeCooldownTimer(CooldownTime);
 
+        Enemie closestEnemie = FindClosestEnemie();
+        if (closestEnemie != null)
+        {
+            float distance = Vector3.Distance(SceneManager.Instance.Player.transform.position, closestEnemie.transform.position);
+            if (distance <= AttackRange)
+            {
+                SceneManager.Instance.Player.RotatePlayer(closestEnemie.transform.position - SceneManager.Instance.Player.transform.position, 1000);
+                closestEnemie.Hp -= Damage;
+            }
+        }
     }
     public override void EventTick(float deltaTick)
     {
         if (isAvailbale == false)
             ChangeCooldownTimer(CooldownTimer - deltaTick);
 
-        isEnemiNear = ISEnemieNear(AttackRange);
+        Enemie closestEnemie = FindClosestEnemie();
+        if(closestEnemie!=null)
+        {
+            float distance = Vector3.Distance(SceneManager.Instance.Player.transform.position, closestEnemie.transform.position);
+            if (distance <= AttackRange)
+                isEnemiNear = true;
+            else
+                isEnemiNear = false;
+        }
+
+
+
+
         if (isEnemiNear)
         {
             //button enable
@@ -33,7 +55,6 @@ public class SuperAttackSpell : Spell
             //button disable
             EventNOTAvailableSpell?.Invoke();
         }
-
         CheckCondition();
     }
     public override bool CheckCondition()
@@ -43,21 +64,5 @@ public class SuperAttackSpell : Spell
         else
             return false;
     }
-    private bool ISEnemieNear(float attackRange)
-    {
-        var enemies = SceneManager.Instance.Enemies;
 
-        for (int i = 0; i < enemies.Count; i++)
-        {
-            var enemie = enemies[i];
-            if (enemie == null)
-            {
-                continue;
-            }
-            var distance = Vector3.Distance(Player.Instance.transform.position, enemie.transform.position);
-            if (distance <= attackRange)
-                return true;
-        }
-        return false;
-    }
 }

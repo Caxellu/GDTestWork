@@ -30,8 +30,8 @@ public class InputManager : MonoBehaviour
             dir += new Vector2(1, 0);
         }
 
-        Player.Instance.RotatePlayer(dir.normalized,1);
-        Player.Instance.MovePlayer(dir.normalized);
+        SceneManager.Instance.Player.RotatePlayer(dir.normalized,1);
+        SceneManager.Instance.Player.MovePlayer(dir.normalized);
     }
     public bool OnKey(KeyCode key) => Input.GetKey(key);
 }

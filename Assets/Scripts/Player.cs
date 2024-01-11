@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public static Player Instance = null;
-
     [SerializeField]
     private float moveSpeed;
     [SerializeField]
     private float rotateSpeed;
 
-    public float Hp;
+    [SerializeField]private float MaxHp;
+    private float CurrentHp;
     public Animator AnimatorController;
 
     private bool isDead = false;
@@ -19,7 +18,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        MaxHp = CurrentHp;
     }
     private void Update()
     {
@@ -28,58 +27,21 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (Hp <= 0)
+        if (CurrentHp <= 0)
         {
             Die();
             return;
         }
-
-
-       /* var enemies = SceneManager.Instance.Enemies;
-        Enemie closestEnemie = null;
-
-        for (int i = 0; i < enemies.Count; i++)
-        {
-            var enemie = enemies[i];
-            if (enemie == null)
-            {
-                continue;
-            }
-
-            if (closestEnemie == null)
-            {
-                closestEnemie = enemie;
-                continue;
-            }
-
-            var distance = Vector3.Distance(transform.position, enemie.transform.position);
-            var closestDistance = Vector3.Distance(transform.position, closestEnemie.transform.position);
-
-            if (distance < closestDistance)
-            {
-                closestEnemie = enemie;
-            }
-
-        }
-
-        if (closestEnemie != null)
-        {
-            var distance = Vector3.Distance(transform.position, closestEnemie.transform.position);
-            if (distance <= AttackRange)
-            {
-                if (Time.time - lastAttackTime > AtackSpeed)
-                {
-                    //transform.LookAt(closestEnemie.transform);
-                    transform.transform.rotation = Quaternion.LookRotation(closestEnemie.transform.position - transform.position);
-
-                    lastAttackTime = Time.time;
-                    closestEnemie.Hp -= Damage;
-                    AnimatorController.SetTrigger("Attack");
-                }
-            }
-        }*/
     }
 
+    public void AddHPVampirism(float hp)
+    {
+        CurrentHp = Mathf.Clamp(CurrentHp + hp, 0.0f, MaxHp);
+    }
+    public void TakeDamage(float hp)
+    {
+        CurrentHp = Mathf.Clamp(CurrentHp - hp, 0.0f, MaxHp);
+    }
     public void RotatePlayer(Vector2 dir, float koefAcceleration)
     {
         if (dir.magnitude != 0)

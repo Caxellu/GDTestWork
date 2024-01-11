@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CooldownTime>k__BackingField: 2
   <AnimKey>k__BackingField: SuperAttack
-  <Damage>k__BackingField: 40
+  <Damage>k__BackingField: 4
   <AttackRange>k__BackingField: 2

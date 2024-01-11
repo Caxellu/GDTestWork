@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class Enemie : MonoBehaviour
 {
     public float Hp;
+    private float maxHp;
     public float Damage;
     public float AtackSpeed;
     public float AttackRange = 2;
@@ -22,7 +23,7 @@ public class Enemie : MonoBehaviour
     {
         SceneManager.Instance.AddEnemie(this);
         Agent.SetDestination(SceneManager.Instance.Player.transform.position);
-
+        maxHp = Hp;
     }
 
     private void Update()
@@ -47,7 +48,7 @@ public class Enemie : MonoBehaviour
             if (Time.time - lastAttackTime > AtackSpeed)
             {
                 lastAttackTime = Time.time;
-                SceneManager.Instance.Player.Hp -= Damage;
+                SceneManager.Instance.Player.TakeDamage(Damage);
                 AnimatorController.SetTrigger("Attack");
             }
         }
@@ -64,6 +65,7 @@ public class Enemie : MonoBehaviour
     private void Die()
     {
         SceneManager.Instance.RemoveEnemie(this);
+        SceneManager.Instance.Player.AddHPVampirism(maxHp*0.5f);
         isDead = true;
         AnimatorController.SetTrigger("Die");
     }
