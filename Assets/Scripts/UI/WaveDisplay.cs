@@ -7,7 +7,7 @@ public class WaveDisplay : MonoBehaviour
 {
     [SerializeField] private Text waveText;
 
-    private void Start()
+    private void Awake()
     {
         SceneManager.Instance.EventStartWave += UpdateWaveNumber;
     }

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,12 +19,13 @@ public class Enemie : MonoBehaviour
     private bool isDead = false;
 
 
-    private void Start()
+    public void Init()
     {
         SceneManager.Instance.AddEnemie(this);
         Agent.SetDestination(SceneManager.Instance.Player.transform.position);
         maxHp = Hp;
     }
+    public virtual void SpawnEnemiesUnit() { }//доспавн или донастройка юнитов, по типу спавн двух мелких гоблинов в большом
 
     private void Update()
     {
@@ -41,8 +42,7 @@ public class Enemie : MonoBehaviour
         }
 
         var distance = Vector3.Distance(transform.position, SceneManager.Instance.Player.transform.position);
-     
-        if (distance <= AttackRange)
+        if (distance <= AttackRange && SceneManager.Instance.Player.isDead==false)
         {
             Agent.isStopped = true;
             if (Time.time - lastAttackTime > AtackSpeed)
@@ -54,6 +54,7 @@ public class Enemie : MonoBehaviour
         }
         else
         {
+            Agent.isStopped = false;
             Agent.SetDestination(SceneManager.Instance.Player.transform.position);
         }
         AnimatorController.SetFloat("Speed", Agent.speed); 

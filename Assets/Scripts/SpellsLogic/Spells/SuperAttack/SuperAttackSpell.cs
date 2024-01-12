@@ -15,6 +15,7 @@ public class SuperAttackSpell : Spell
     {
         AnimatorController.SetTrigger(AnimKey);
         ChangeCooldownTimer(CooldownTime);
+        ChangeCastTimer(CastTime);
         IsCast = true;
 
         Enemie closestEnemie = FindClosestEnemie();
@@ -23,7 +24,8 @@ public class SuperAttackSpell : Spell
             float distance = Vector3.Distance(SceneManager.Instance.Player.transform.position, closestEnemie.transform.position);
             if (distance <= AttackRange)
             {
-                SceneManager.Instance.Player.RotatePlayer(closestEnemie.transform.position - SceneManager.Instance.Player.transform.position, 1000);
+                SceneManager.Instance.Player.transform.LookAt(new Vector3(closestEnemie.transform.position.x,0, closestEnemie.transform.position.z));
+                //SceneManager.Instance.Player.RotatePlayer(closestEnemie.transform.position - SceneManager.Instance.Player.transform.position, 1000);
                 closestEnemie.Hp -= Damage;
             }
         }

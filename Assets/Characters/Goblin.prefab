@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hp: 2
   Damage: 2
-  AtackSpeed: 1
+  AtackSpeed: 2
   AttackRange: 2
   AnimatorController: {fileID: 7475179364339281051}
   Agent: {fileID: 8767279960998370427}

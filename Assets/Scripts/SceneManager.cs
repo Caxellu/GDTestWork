@@ -60,7 +60,9 @@ public class SceneManager : MonoBehaviour
         foreach (var character in wave.Characters)
         {
             Vector3 pos = new Vector3(UnityEngine.Random.Range(-10, 10), 0, UnityEngine.Random.Range(-10, 10));
-            Instantiate(character, pos, Quaternion.identity);
+            var enemie = Instantiate(character, pos, Quaternion.identity);
+            enemie.GetComponent<Enemie>().Init();
+            enemie.GetComponent<Enemie>().SpawnEnemiesUnit();
         }
         currWave++;
         EventStartWave?.Invoke(currWave, Config.Waves.Length);

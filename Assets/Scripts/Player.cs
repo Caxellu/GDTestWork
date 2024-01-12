@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
         {
             dir.Normalize();
             Quaternion targetLook = Quaternion.LookRotation(new Vector3(dir.x, 0, dir.y), Vector3.up);
-            gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, targetLook, rotateSpeed* koefAcceleration * Time.deltaTime);
+            gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, targetLook, rotateSpeed * koefAcceleration * Time.deltaTime);
         }
     }
     public void MovePlayer(Vector2 dir)

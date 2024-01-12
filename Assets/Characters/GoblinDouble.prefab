@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: cb01db2707aa97a4e94efee03de71f52, type: 3}
       propertyPath: m_Name
-      value: Goblindouble
+      value: GoblinDouble
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -108,13 +108,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea9343aba5b24743939e78ab89f8d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp: 4
-  Damage: 3
-  AtackSpeed: 1
+  Hp: 3
+  Damage: 2
+  AtackSpeed: 2
   AttackRange: 2
   AnimatorController: {fileID: 637839848225467411}
   Agent: {fileID: 7351171937663662752}
-  miniGoblin: {fileID: 4876253435212955031, guid: 013f05654f52c244c88e2d4d5ab434cb, type: 3}
+  miniGoblin: {fileID: 8560780506231761473, guid: 013f05654f52c244c88e2d4d5ab434cb, type: 3}
 --- !u!195 &7351171937663662752
 NavMeshAgent:
   m_ObjectHideFlags: 0

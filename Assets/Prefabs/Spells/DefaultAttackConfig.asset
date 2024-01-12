@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: DefaultAttackConfig
   m_EditorClassIdentifier: 
   <CooldownTime>k__BackingField: 0.7
+  <CastTime>k__BackingField: 0.5
   <AnimKey>k__BackingField: Attack
   <Damage>k__BackingField: 1
   <AttackRange>k__BackingField: 2

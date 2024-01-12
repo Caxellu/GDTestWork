@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Wave
   Characters:
   - {fileID: 4570157599844447218, guid: 4c34fad82d8582f40a00c43d3128284a, type: 3}
-  - {fileID: 4570157599844447218, guid: 4c34fad82d8582f40a00c43d3128284a, type: 3}
+  - {fileID: 8560780506231761473, guid: 013f05654f52c244c88e2d4d5ab434cb, type: 3}
+  - {fileID: 8560780506231761473, guid: 013f05654f52c244c88e2d4d5ab434cb, type: 3}
